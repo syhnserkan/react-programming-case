@@ -15,5 +15,5 @@
 
 ### Deployment
 
-Check out the project. [Project Preview](https://facebook.github.io/create-react-app/docs/deployment)
+Check out the project. [Project Preview](https://react-prog-case.netlify.app/)
 
