@@ -1,0 +1,1 @@
+export const VIEWED_USERS = 'VIEWED_USERS'
