@@ -14,8 +14,8 @@ const store = createStore(Reducer)
 function App() {
   return (
     <Provider store={store}>
-      <Layout>
-        <Router>
+      <Router>
+        <Layout>
           <Switch>
             <Route exact path='/'>
               <Home />
@@ -24,8 +24,8 @@ function App() {
               <Posts />
             </Route>
           </Switch>
-        </Router>
-      </Layout>
+        </Layout>
+      </Router>
     </Provider>
   )
 }

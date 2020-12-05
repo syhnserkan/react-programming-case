@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Alert,
-  AlertIcon,
-  Badge,
-  Box,
-  Flex,
-  Heading,
-  Text,
-} from '@chakra-ui/react'
+import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react'
 import moment from 'moment'
-
-import { Link } from 'react-router-dom'
-
 //redux stuff
 import { useSelector, useDispatch } from 'react-redux'
 import { checkLastViewedUser } from '../redux/Action'
 
+//componenets
+import LastViewed from './LastViewed'
+
 const Layout = ({ children }) => {
   const dispatch = useDispatch()
-  // const usersList = useSelector((state) => state.users)
   const storeUser = useSelector((state) =>
     state.users.length <= 5 ? state.users : state.users.slice(0, 5)
   )
@@ -26,7 +17,6 @@ const Layout = ({ children }) => {
 
   const handleViewedUser = (id) => {
     const user = storeUser.find((person) => person.id === id)
-    console.log(user)
     dispatch(checkLastViewedUser(user))
   }
 
@@ -56,7 +46,6 @@ const Layout = ({ children }) => {
           border='1px solid gray'
           borderRadius='5px'
           flexDirection='column'
-          // justifyContent='space-between'
           alignItems='center'
           padding='15px 10px'
           height='580.8px'
@@ -67,54 +56,10 @@ const Layout = ({ children }) => {
             Latest Viewed Users
           </Heading>
           {/* Items component */}
-          <Flex flexDirection='column' w='100%'>
-            {storeUser.length > 0 ? (
-              storeUser.map((item, index) => (
-                <Flex
-                  key={item.id}
-                  border='1px solid gray'
-                  borderRadius='5px'
-                  padding='15px 10px'
-                  justifyContent='center'
-                  alignItems='center'
-                  w='100%'
-                  marginBottom={index < storeUser.length - 1 ? '10px' : '0'}
-                >
-                  <Box w='70%'>
-                    <Text fontSize='12px'>
-                      {item.name.slice(0, 20) + '...'}
-                    </Text>
-                    <Text fontSize='12px'>
-                      {item.email.slice(0, 20) + '...'}
-                    </Text>
-                    <Text fontSize='12px'>{item.gender}</Text>
-                  </Box>
-                  <Link
-                    raised='true'
-                    primary='true'
-                    w='30px'
-                    size='xs'
-                    style={{
-                      textDecoration: 'none',
-                      backgroundColor: 'lightcyan',
-                      padding: '3px 5px',
-                      borderRadius: '5px',
-                      fontSize: '13px',
-                    }}
-                    onClick={() => handleViewedUser(item.id)}
-                    to={`/posts/${item.id}`}
-                  >
-                    View Posts
-                  </Link>
-                </Flex>
-              ))
-            ) : (
-              <Alert status='info'>
-                <AlertIcon />
-                There is no viewed user.
-              </Alert>
-            )}
-          </Flex>
+          <LastViewed
+            storeUser={storeUser}
+            handleViewedUser={(id) => handleViewedUser(id)}
+          />
         </Flex>
       </Flex>
     </Box>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Flex, Input, Stack, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import Datatable from 'react-data-table-component'
-
+//components
 import Loading from '../components/Loading'
 
 //redux
@@ -34,7 +34,8 @@ const Home = () => {
 
   const filterUser = (users) => {
     return users.filter(
-      (user) => user.name.toLowerCase().indexOf(inputVal) > -1
+      (user) =>
+        user.name.toLowerCase().indexOf(inputVal.toLocaleLowerCase()) > -1
     )
   }
 

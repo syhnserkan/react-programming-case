@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, AlertIcon, Box, Heading, Stack } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import { Alert, AlertIcon, Box, Heading, Stack } from '@chakra-ui/react'
+//components
 import Loading from '../components/Loading'
 import Post from '../components/Post'
+
+//redux stuff
+import { useSelector } from 'react-redux'
 
 const Posts = () => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [username, setUsername] = useState('')
   const { id } = useParams()
+
+  //store users
+  const storeUsers = useSelector((state) => state.users)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,8 +32,15 @@ const Posts = () => {
           setLoading(false)
         })
     }
+    const findUsername = () => {
+      const users = storeUsers.filter((user) => user.id !== id)
+      setUsername(users[0].name)
+    }
+
     fetchPosts()
-  }, [id])
+    findUsername()
+  }, [storeUsers, id])
+
   return (
     <Box
       d='flex'
@@ -36,7 +51,7 @@ const Posts = () => {
       marginRight='20px'
     >
       <Heading as='h4' size='md' mb='20px'>
-        Selected User Name {id}
+        {username}
       </Heading>
       <Box
         d='grid'
