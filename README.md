@@ -15,5 +15,5 @@
 
 ### Deployment
 
-Check out the project. [Project Preview](https://angular10-movie-app.vercel.app/)
+Check out the project. [Project Preview](https://react-prog-case.netlify.app/)
 
